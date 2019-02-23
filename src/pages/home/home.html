@@ -147,8 +147,12 @@
             <ion-label position="fixed" color="dark">Term Credit Hours: </ion-label>
             <ion-input [(ngModel)]="termCreditHours" (ngModelChange)="termCreditHours = stringBugFix($event)" type="number" placeholder="0" digit></ion-input>
           </ion-item>
-          <h1 style="border-top: 1px solid black">Desired Term GPA</h1>
-          <h4>{{getRequiredGPA()}}</h4>
+          <h1 style="border-top: 1px solid black">Term GPA Needed</h1>
+          <h4 *ngIf="getRequiredGPA() != ''">{{getRequiredGPA()}}</h4>
+          <div *ngIf="getRequiredGPA() == ''">
+            <br />
+            <br />
+          </div>
         </div>
         <ion-row>
           <ion-col>
@@ -161,7 +165,7 @@
       </ion-col>
       <ion-col>
         <h1 style="text-align: center">Acedemic Standing Chart</h1>
-        <img src="../../assets/imgs/Academic Standing.jpg" style="transform: translateY(-3px)" />
+        <img src="assets/imgs/Academic Standing.jpg" style="transform: translateY(-3px)" />
       </ion-col>
     </ion-row>
   </ion-grid>

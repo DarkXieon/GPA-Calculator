@@ -103,8 +103,8 @@ export class HomePage {
     let termQualityPoints: number = this.getTermQualityPoints();
     
     let termGPA: number = termQualityPoints / termCreditHours;
-
-    return termGPA.toFixed(2);
+    
+    return !isNaN(termGPA) ? termGPA.toFixed(2) : "";
   }
 
   private getCumulativeGPA(): string {
@@ -118,8 +118,8 @@ export class HomePage {
     let termRetakePoints: number = this.getPreviousQualityPoints();
     
     let cumulativeGPA: number = ((currentQualityPoints - termRetakePoints) + termQualityPoints) / ((this.currentCreditHoursTaken - termRetakeHours) + termCreditHours);
-    
-    return cumulativeGPA.toFixed(2);
+
+    return !isNaN(cumulativeGPA) ? cumulativeGPA.toFixed(2) : "";
   }
 
   private getRequiredGPA(): string {
@@ -128,8 +128,8 @@ export class HomePage {
 
     let termQualityPointsNeeded: number = this.desiredGPA * (this.currentCreditHoursTaken + this.termCreditHours) - currentQualityPoints;
     let termGPANeeded: number = termQualityPointsNeeded / this.termCreditHours;
-    
-    return termGPANeeded.toFixed(2);
+
+    return !isNaN(termGPANeeded) ? termGPANeeded.toFixed(2) : "";
   }
 
   private updateTermCreditHours(): void {
