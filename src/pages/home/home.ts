@@ -5,6 +5,7 @@ import { NavController } from 'ionic-angular';
   selector: 'page-home',
   templateUrl: 'home.html'
 })
+
 export class HomePage {
 
   //constants
@@ -26,7 +27,7 @@ export class HomePage {
   private termGPA: number;
   
 
-  constructor(public navCtrl: NavController) {
+  constructor() {
     this.classes = [this.createClass(), this.createClass(), this.createClass(), this.createClass(), this.createClass()];
   }
 

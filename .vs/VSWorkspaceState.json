@@ -1,6 +1,7 @@
 {
   "ExpandedNodes": [
     "",
+    "\\resources",
     "\\src",
     "\\src\\app",
     "\\src\\assets",
@@ -10,5 +11,6 @@
     "\\src\\pages\\home",
     "\\src\\theme"
   ],
+  "SelectedNode": "\\src\\app\\main.ts",
   "PreviewInSolutionExplorer": false
 }
