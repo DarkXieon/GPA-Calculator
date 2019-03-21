@@ -15,7 +15,7 @@
         </ion-item>
       </ion-col>
     </ion-row>
-
+    
     <ion-row>
       <ion-col>
         <ion-item>
@@ -123,29 +123,6 @@
         <ion-col style="padding: 0px; border-right: 1px solid black"></ion-col>
       </ion-row>
 
-      <!--
-  <ion-row style="border-bottom: 1px solid black">
-    <ion-col>
-    </ion-col>
-    <ion-col></ion-col>
-    <ion-col></ion-col>
-    <ion-col style="border-left: 1px solid black"></ion-col>
-    <ion-col></ion-col>
-  </ion-row>
-    <ion-row>
-      <ion-col></ion-col>
-      <ion-col>
-        <h1>Term GPA</h1>
-        <h4>{{getTermGPA()}}</h4>
-      </ion-col>
-      <ion-col style="border-right: 1px solid black"></ion-col>
-      <ion-col style="transform: translateX(50%)">
-        <h1>Cumulative GPA</h1>
-        <h4>{{getCumulativeGPA()}}</h4>
-      </ion-col>
-      <ion-col></ion-col>
-    </ion-row>
-  -->
     </div>
 
     <ion-row>
@@ -172,7 +149,7 @@
             <button ion-button (click)="clear()" full>Clear</button>
           </ion-col>
           <ion-col>
-            <button ion-button full>Print</button>
+            <button ion-button (click)="printPage('print')" full>Print</button>
           </ion-col>
         </ion-row>
       </ion-col>
@@ -186,4 +163,5 @@
   <br />
   <br />
   <br />
+  <print-display [classes]="classes" [name]="name"></print-display>
 </ion-content>

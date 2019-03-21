@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { PrintProvider } from '../../providers/print/print';
+import { Printer } from '@ionic-native/printer';
 
 @Component({
   selector: 'page-home',
@@ -27,7 +29,7 @@ export class HomePage {
   private termGPA: number;
   
 
-  constructor() {
+  constructor(private printer: PrintProvider) {
     this.classes = [this.createClass(), this.createClass(), this.createClass(), this.createClass(), this.createClass()];
   }
 
@@ -129,8 +131,12 @@ export class HomePage {
 
     let termQualityPointsNeeded: number = this.desiredGPA * (this.currentCreditHoursTaken + this.termCreditHours) - currentQualityPoints;
     let termGPANeeded: number = termQualityPointsNeeded / this.termCreditHours;
-
+    
     return !isNaN(termGPANeeded) ? termGPANeeded.toFixed(2) : "";
+  }
+
+  private printPage(elementId: string): void {
+    this.printer.print(elementId)
   }
 
   private updateTermCreditHours(): void {

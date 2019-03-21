@@ -1,0 +1,61 @@
+<div>
+  <ion-grid>
+
+    <ion-row>
+      <ion-col>
+        <ion-item item-start>Name: {{name}}</ion-item>
+      </ion-col>
+      <ion-col></ion-col>
+      <ion-col>
+        <ion-item item-start>Date: {{date}}</ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="padding-top: 5vh">
+      <ion-col style="padding: 0px"></ion-col>
+      <ion-col style="padding: 0px; text-align: center">
+        <h2>Current Term</h2>
+      </ion-col>
+      <ion-col style="padding: 0px"></ion-col>
+      <ion-col style="padding: 0px; text-align: center; transform: translateX(50%)">
+        <h2>Repeat Courses</h2>
+      </ion-col>
+      <ion-col style="padding: 0px"></ion-col>
+    </ion-row>
+
+    <ion-row style="text-align: center; border: 1px solid black">
+      <ion-col>
+        Subject
+        <ion-item no-lines *ngFor="let class of classes" style="text-align: center">
+          {{class.name}}
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        Grade
+        <ion-item no-lines *ngFor="let class of classes" style="text-align: center">
+          {{class.predictedGrade}}
+        </ion-item>
+      </ion-col>
+      <ion-col style=" border-right: 1px solid black">
+        Credit Hours
+        <ion-item no-lines *ngFor="let class of classes" style="text-align: center">
+          {{class.creditHours}}
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        Retaking Course
+        <ion-item no-lines *ngFor="let class of classes" style="text-align: center">
+          <div *ngIf="class.retaking">Yes</div>
+          <div *ngIf="!class.retaking">No</div>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        Previous Grade
+        <ion-item no-lines *ngFor="let class of classes" style="text-align: center">
+          {{class.previousGrade}}
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+

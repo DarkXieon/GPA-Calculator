@@ -1,16 +1,15 @@
 {
   "ExpandedNodes": [
     "",
-    "\\resources",
     "\\src",
     "\\src\\app",
-    "\\src\\assets",
-    "\\src\\assets\\icon",
-    "\\src\\assets\\imgs",
+    "\\src\\components",
+    "\\src\\components\\print-display",
     "\\src\\pages",
     "\\src\\pages\\home",
-    "\\src\\theme"
+    "\\src\\providers",
+    "\\src\\providers\\print"
   ],
-  "SelectedNode": "\\src\\app\\main.ts",
+  "SelectedNode": "\\src\\components\\components.module.ts",
   "PreviewInSolutionExplorer": false
 }
