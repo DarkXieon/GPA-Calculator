@@ -15,7 +15,7 @@
         </ion-item>
       </ion-col>
     </ion-row>
-    
+
     <ion-row>
       <ion-col>
         <ion-item>
@@ -32,98 +32,102 @@
       </ion-col>
     </ion-row>
 
-    <ion-row style="padding-top: 5vh">
-      <ion-col style="padding: 0px"></ion-col>
-      <ion-col style="padding: 0px; text-align: center">
-        <h2>Current Term</h2>
-      </ion-col>
-      <ion-col style="padding: 0px"></ion-col>
-      <ion-col style="padding: 0px; text-align: center; transform: translateX(50%)">
-        <h2>Repeat Courses</h2>
-      </ion-col>
-      <ion-col style="padding: 0px"></ion-col>
-    </ion-row>
+    <div class="top-padding">
+      <ion-row>
+        <ion-col class="main-table-col-1"></ion-col>
+        <ion-col class="main-table-col-2">
+          <div id="table-header">
+            <h2>Current Term</h2>
+          </div>
+        </ion-col>
+        <ion-col class="main-table-col-3"></ion-col>
+        <ion-col class="main-table-col-4" style="border-left: 0px !important"></ion-col>
+        <ion-col class="main-table-col-5">
+          <div id="table-header">
+            <h2 id="table-header">Repeat Courses</h2>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
 
-    <div style="text-align: center; padding-bottom: 5vh">
-      <ion-row style="border: 1px solid black">
-        <ion-col style="padding: 0px">
-          <p style="padding: 0px;">Subject</p>
-          <div *ngFor="let class of classes" style="padding: 0px">
-            <ion-item no-lines>
+    <div class="bordered">
+      <ion-row>
+        <ion-col class="main-table-col-1">
+          <p>Subject</p>
+          <div *ngFor="let class of classes">
+            <ion-item no-lines id="class-input">
               <ion-input [(ngModel)]="class.name" type="text" placeholder="Class Name Here"></ion-input>
             </ion-item>
           </div>
-          <ion-item no-lines>
-            <button ion-button full (click)="addClass()" color="primary">New Class</button>
-          </ion-item>
-          <div style="border-bottom: 1px solid black"></div>
-        </ion-col>
-        <ion-col style="padding: 0px">
-          <p>Grade</p>
-          <div *ngFor="let class of classes">
+          <div class="button-row bottom-bordered">
             <ion-item no-lines>
-              <ion-select [(ngModel)]="class.predictedGrade" interface="popover" style="transform: translateX(50%); width: 100%">
+              <button ion-button full id="add-class" (click)="addClass()" color="primary">New Class</button>
+            </ion-item>
+          </div>
+        </ion-col>
+        <ion-col class="main-table-col-2">
+          <p>Grade</p>
+          <div id="letter-grade" *ngFor="let class of classes">
+            <ion-item no-lines id="letter-grade">
+              <ion-select id="letter-grade" [(ngModel)]="class.predictedGrade" interface="popover">
                 <ion-option *ngFor="let grade of acceptedGradeValues" value="{{grade}}">{{grade}}</ion-option>
               </ion-select>
             </ion-item>
           </div>
-          <div style="height: 60px; border-bottom: 1px solid black"></div>
+          <div class="button-row bottom-bordered"></div>
         </ion-col>
-        <ion-col style="padding: 0px">
+        <ion-col class="main-table-col-3">
           <p>Credits</p>
-          <div *ngFor="let class of classes">
-            <ion-item no-lines>
-              <ion-select [(ngModel)]="class.creditHours" (ngModelChange)="class.creditHours = stringBugFix($event)" (ionChange)="updateTermCreditHours()" interface="popover" style="transform: translateX(calc(50% + 15px)); width: 100%;">
+          <div id="credit-hours" *ngFor="let class of classes">
+            <ion-item no-lines id="credit-hours">
+              <ion-select id="credit-hours" [(ngModel)]="class.creditHours" (ngModelChange)="class.creditHours = stringBugFix($event)" (ionChange)="updateTermCreditHours()" interface="popover">
                 <ion-option *ngFor="let credits of acceptedCreditHourValues" value="{{credits}}">{{credits}}</ion-option>
               </ion-select>
-              <button ion-button item-end color="danger" (click)="removeClass(class)">X</button>
+              <button ion-button item-end id="remove-class" color="danger" (click)="removeClass(class)">X</button>
             </ion-item>
           </div>
-          <div style="height: 60px; width: 101%; border-bottom: 1px solid black"></div>
-          <div style="height: 100px"></div>
+          <div class="button-row bottom-bordered"></div>
+          <div class="right-bordered" style="height: 101px; transform: translateX(1px)"></div>
         </ion-col>
-        <ion-col style="padding: 0px; border-left: 1px solid black">
-          <div>
-            <p>Retaking Course</p>
-            <div *ngFor="let class of classes">
-              <ion-item no-lines>
-                <ion-label position="fixed" color="dark">I have taken this class before: </ion-label>
-                <ion-checkbox item-end [(ngModel)]="class.retaking"></ion-checkbox>
-              </ion-item>
-            </div>
+        <ion-col class="main-table-col-4">
+          <p>Retaking Course</p>
+          <div id="retaking-course" *ngFor="let class of classes">
+            <ion-item id="retaking-course" no-lines>
+              <ion-label id="checkbox" position="fixed" color="dark">I have taken this class before: </ion-label>
+              <ion-checkbox item-end [(ngModel)]="class.retaking"></ion-checkbox>
+            </ion-item>
           </div>
-          <div style="height: 60px; border-bottom: 1px solid black"></div>
+          <div class="button-row bottom-bordered"></div>
         </ion-col>
-        <ion-col style="padding: 0px">
+        <ion-col class="main-table-col-5">
           <p>Previous Grade</p>
-          <div *ngFor="let class of classes">
-            <ion-item no-lines>
-              <ion-select [disabled]="!class.retaking" [(ngModel)]="class.previousGrade" interface="popover" style="transform: translateX(50%); width: 100%;">
+          <div id="previous-grade" *ngFor="let class of classes">
+            <ion-item no-lines id="previous-grade">
+              <ion-select id="previous-grade" [disabled]="!class.retaking" [(ngModel)]="class.previousGrade" interface="popover">
                 <ion-option *ngFor="let grade of acceptedGradeValues" value="{{grade}}">{{grade}}</ion-option>
               </ion-select>
             </ion-item>
           </div>
-          <div style="height: 60px; border-bottom: 1px solid black"></div>
+          <div class="button-row bottom-bordered"></div>
         </ion-col>
       </ion-row>
-
-      <ion-row style="transform: translateY(-100px)">
-        <ion-col style="padding: 0px; border-left: 1px solid black"></ion-col>
-        <ion-col style="padding: 0px; text-align: center">
-          <h1>Term GPA</h1>
-          <h4>{{getTermGPA()}}</h4>
-        </ion-col>
-        <ion-col style="padding: 0px"></ion-col>
-        <ion-col style="padding: 0px; text-align: center">
-          <div style="transform: translateX(50%)">
-            <h1>Cumulative GPA</h1>
-            <h4>{{getCumulativeGPA()}}</h4>
-          </div>
-        </ion-col>
-        <ion-col style="padding: 0px; border-right: 1px solid black"></ion-col>
-      </ion-row>
-
     </div>
+
+    <ion-row style="transform: translateY(-100px)">
+      <ion-col style="padding: 0px; border-left: 1px solid black"></ion-col>
+      <ion-col style="padding: 0px; text-align: center">
+        <h1>Term GPA</h1>
+        <h4>{{getTermGPA()}}</h4>
+      </ion-col>
+      <ion-col style="padding: 0px"></ion-col>
+      <ion-col style="padding: 0px; text-align: center">
+        <div style="transform: translateX(50%)">
+          <h1>Cumulative GPA</h1>
+          <h4>{{getCumulativeGPA()}}</h4>
+        </div>
+      </ion-col>
+      <ion-col style="padding: 0px; border-right: 1px solid black"></ion-col>
+    </ion-row>
 
     <ion-row>
       <ion-col>

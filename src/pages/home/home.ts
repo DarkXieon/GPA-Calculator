@@ -31,6 +31,8 @@ export class HomePage {
 
   constructor(private printer: PrintProvider) {
     this.classes = [this.createClass(), this.createClass(), this.createClass(), this.createClass(), this.createClass()];
+    
+    //console.log( getComputedStyle(document.documentElement).getPropertyValue('$main-table-col-1-min-width'));
   }
 
   private createClass(): Class {

@@ -1,12 +1,223 @@
 page-home {
-  /*tablelist {
-    height: 100px;
-    width: 100px;
-    text-align: center;
-  }*/
 
-  /*#print {
-    max-width: 8.5in;
-    max-height: 11in;
+  $main-table-col-1-min-width: 200px;
+  $main-table-col-2-min-width: 76px; //--main-table-col-2-min-width: 142px;
+  $main-table-col-3-min-width: 101px;
+  $main-table-col-4-min-width: 265px;
+  $main-table-col-5-min-width: 96px;
+  $main-table-col-1-width: 27.1vw;
+  $main-table-col-2-width: 10.298vw;
+  $main-table-heading-width-1: 144px;
+  $main-table-heading-width-2: 170px;
+  $add-class-button-height: 25px;
+  $remove-class-button-width: 25px;
+
+  ion-row {
+    padding: 0px !important;
+    text-align: center !important;
+  }
+
+  ion-row ion-col {
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0px !important;
+  }
+
+  ion-row ion-col.main-table-col-1 {
+    min-width: $main-table-col-1-min-width !important;
+  }
+
+  ion-row ion-col.main-table-col-2 {
+    min-width: $main-table-col-2-min-width !important;
+  }
+
+  ion-row ion-col.main-table-col-3 {
+    min-width: $main-table-col-3-min-width !important;
+  }
+
+  ion-row ion-col.main-table-col-3 p {
+    transform: translateX(-$remove-class-button-width / 2) !important; //translateX(-$remove-class-button-width / 2) !important;
+  }
+
+  ion-row ion-col.main-table-col-4 {
+    min-width: $main-table-col-4-min-width !important;
+    border-left: 1px solid black;
+  }
+
+  ion-row ion-col.main-table-col-5 {
+    min-width: $main-table-col-5-min-width !important;
+  }
+
+  ion-row ion-col.main-table-col-2 div#table-header {
+    text-align: center !important;
+    width: $main-table-heading-width-1 !important;
+  }
+  /*ion-row ion-col.main-table-col-2 h2#table-header {
+    width: 100% !important;
+    //transform: translateX(calc(-71px));
   }*/
+  ion-row ion-col.main-table-col-5 div#table-header {
+    text-align: left !important;
+    width: $main-table-heading-width-2 !important;
+  }
+
+  ion-row ion-col.main-table-col-5 h2#table-header {
+    width: 100% !important;
+    transform: translateX(calc((100% - 361px) / 2));
+    /*
+      This gives actual middle and the above gives a more visually appealing middle
+      transform: translateX(calc((100% - 437px) / 2));
+    */
+  }
+
+  ion-row ion-col ion-item {
+    width: 100% !important;
+    height: 100% !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+
+  ion-row ion-col ion-item#class-input {
+    min-width: $main-table-col-1-min-width !important;
+  }
+
+  ion-row ion-col ion-item#letter-grade {
+    min-width: $main-table-col-2-min-width !important;
+  }
+
+  ion-row ion-col ion-item#credit-hours {
+    min-width: $main-table-col-3-min-width !important;
+  }
+
+  ion-row ion-col ion-item#retaking-course {
+    min-width: $main-table-col-4-min-width !important;
+  }
+
+  ion-row ion-col ion-item#previous-grade {
+    min-width: $main-table-col-5-min-width !important;
+  }
+
+  ion-row ion-col div#letter-grade {
+    width: 100% !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    /*padding-left: 50% !important;
+    padding-right: 0px !important;
+    transform: translateX(-38px) !important;*/
+  }
+
+  ion-row ion-col div#credit-hours {
+    width: 100% !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    /*padding-left: 50% !important;
+    padding-right: 0px !important;
+    transform: translateX(-46px) !important;
+    width: calc(100% + 23px) !important;*/
+  }
+
+  ion-row ion-col div#previous-grade {
+    width: 100% !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+
+  ion-row ion-col div#retaking-course {
+    width: 100% !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+
+  ion-row ion-col ion-item ion-select {
+    height: 100% !important;
+    padding-left: 0px !important;
+    padding-right: 6px !important;
+  }
+
+  ion-row ion-col ion-item ion-select#letter-grade {
+    min-width: calc(100% - 10px) !important;
+    /*min-width: 70px !important;
+    max-width: 70px !important;*/
+  }
+
+  ion-row ion-col ion-item ion-select#credit-hours {
+    min-width: 100% !important;
+    /*min-width: 50px !important;
+    max-width: 50px !important;*/
+  }
+
+  ion-row ion-col ion-item ion-select#previous-grade {
+    min-width: 100% !important;
+    /*min-width: 50px !important;
+    max-width: 50px !important;*/
+  }
+
+  ion-row ion-col ion-item ion-label#checkbox {
+    padding-left: 10px;
+    min-width: calc(100% - 10px) !important;
+    /*min-width: 50px !important;
+    max-width: 50px !important;*/
+  }
+
+  ion-row ion-col ion-item button#add-class {
+    height: 25px !important;
+    transform: translateX(5px);
+  }
+
+  ion-row ion-col ion-item button#remove-class {
+    width: 25px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    transform: translateX(10px);
+  }
+
+  ion-row ion-col ion-item ion-label {
+    text-align: left;
+  }
+
+  p, h2 {
+    width: 100%;
+    height: 100%;
+    overflow-x: visible;
+    overflow-y: hidden;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  div.button-row {
+    height: 60px !important;
+  }
+
+  div.bordered {
+    border: 1px solid black;
+    padding: 0px;
+  }
+
+  div.top-bordered {
+    border-top: 1px solid black;
+    padding: 0px;
+  }
+
+  div.right-bordered {
+    border-right: 1px solid black;
+    padding: 0px;
+  }
+
+  div.left-bordered {
+    border-left: 1px solid black;
+    padding: 0px;
+  }
+
+  div.bottom-bordered {
+    border-bottom: 1px solid black;
+    padding: 0px;
+  }
+
+  div.top-padding {
+    padding-top: 5vw;
+  }
+
+  div.bottom-padding {
+    padding-bottom: 5vw;
+  }
 }
