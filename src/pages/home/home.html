@@ -26,7 +26,7 @@
       <ion-col></ion-col>
       <ion-col>
         <ion-item>
-          <ion-label position="fixed" color="dark">Credit Hours: </ion-label>
+          <ion-label position="fixed" color="dark">GPA Hours: </ion-label>
           <ion-input [(ngModel)]="currentCreditHoursTaken" (ngModelChange)="currentCreditHoursTaken = stringBugFix($event)" type="number" placeholder="0"></ion-input>
         </ion-item>
       </ion-col>
@@ -36,15 +36,17 @@
       <ion-row>
         <ion-col class="main-table-col-1"></ion-col>
         <ion-col class="main-table-col-2">
-          <div id="table-header">
+          <div class="heading">
             <h2>Current Term</h2>
           </div>
         </ion-col>
         <ion-col class="main-table-col-3"></ion-col>
         <ion-col class="main-table-col-4" style="border-left: 0px !important"></ion-col>
         <ion-col class="main-table-col-5">
-          <div id="table-header">
-            <h2 id="table-header">Repeat Courses</h2>
+          <div class="heading">
+            <div id="top">
+              <h2>Repeat Courses</h2>
+            </div>
           </div>
         </ion-col>
       </ion-row>
@@ -55,57 +57,70 @@
         <ion-col class="main-table-col-1">
           <p>Subject</p>
           <div *ngFor="let class of classes">
-            <ion-item no-lines id="class-input">
+            <!-- id="class-input"-->
+            <ion-item no-lines>
               <ion-input [(ngModel)]="class.name" type="text" placeholder="Class Name Here"></ion-input>
             </ion-item>
           </div>
           <div class="button-row bottom-bordered">
             <ion-item no-lines>
-              <button ion-button full id="add-class" (click)="addClass()" color="primary">New Class</button>
+              <button ion-button full class="add-class" (click)="addClass()" color="primary">New Class</button>
             </ion-item>
           </div>
         </ion-col>
         <ion-col class="main-table-col-2">
           <p>Grade</p>
-          <div id="letter-grade" *ngFor="let class of classes">
-            <ion-item no-lines id="letter-grade">
-              <ion-select id="letter-grade" [(ngModel)]="class.predictedGrade" interface="popover">
-                <ion-option *ngFor="let grade of acceptedGradeValues" value="{{grade}}">{{grade}}</ion-option>
-              </ion-select>
+          <div *ngFor="let class of classes">
+            <ion-item no-lines>
+              <div item-content class="centered-select">
+                <div item-content class="select-item">
+                  <ion-select [(ngModel)]="class.predictedGrade" interface="popover">
+                    <ion-option *ngFor="let grade of acceptedGradeValues" value="{{grade}}">{{grade}}</ion-option>
+                  </ion-select>
+                </div>
+              </div>
             </ion-item>
           </div>
           <div class="button-row bottom-bordered"></div>
         </ion-col>
         <ion-col class="main-table-col-3">
           <p>Credits</p>
-          <div id="credit-hours" *ngFor="let class of classes">
-            <ion-item no-lines id="credit-hours">
-              <ion-select id="credit-hours" [(ngModel)]="class.creditHours" (ngModelChange)="class.creditHours = stringBugFix($event)" (ionChange)="updateTermCreditHours()" interface="popover">
-                <ion-option *ngFor="let credits of acceptedCreditHourValues" value="{{credits}}">{{credits}}</ion-option>
-              </ion-select>
-              <button ion-button item-end id="remove-class" color="danger" (click)="removeClass(class)">X</button>
+          <div *ngFor="let class of classes">
+            <ion-item no-padding no-lines>
+              <div item-content class="centered-select">
+                <div item-content class="select-item">
+                  <ion-select [(ngModel)]="class.creditHours" (ngModelChange)="class.creditHours = stringBugFix($event)" (ionChange)="updateTermCreditHours()" interface="popover">
+                    <ion-option *ngFor="let credits of acceptedCreditHourValues" value="{{credits}}">{{credits}}</ion-option>
+                  </ion-select>
+                </div>
+              </div>
+              <button item-end ion-button class="remove-class" color="danger" (click)="removeClass(class)">X</button>
             </ion-item>
           </div>
           <div class="button-row bottom-bordered"></div>
-          <div class="right-bordered" style="height: 101px; transform: translateX(1px)"></div>
+          <div class="right-bordered" style="height: 101px; transform: translate(1px, 5px)"></div>
         </ion-col>
         <ion-col class="main-table-col-4">
           <p>Retaking Course</p>
-          <div id="retaking-course" *ngFor="let class of classes">
-            <ion-item id="retaking-course" no-lines>
-              <ion-label id="checkbox" position="fixed" color="dark">I have taken this class before: </ion-label>
+          <div *ngFor="let class of classes">
+            <ion-item no-lines>
+              <ion-label class="checkbox" position="fixed" color="dark">I have taken this class before: </ion-label>
               <ion-checkbox item-end [(ngModel)]="class.retaking"></ion-checkbox>
             </ion-item>
           </div>
-          <div class="button-row bottom-bordered"></div>
+          <div class="button-row bottom-bordered" style="width: calc(100% + 1px) !important; transform: translateX(-1px)"></div>
         </ion-col>
         <ion-col class="main-table-col-5">
           <p>Previous Grade</p>
-          <div id="previous-grade" *ngFor="let class of classes">
+          <div *ngFor="let class of classes">
             <ion-item no-lines id="previous-grade">
-              <ion-select id="previous-grade" [disabled]="!class.retaking" [(ngModel)]="class.previousGrade" interface="popover">
-                <ion-option *ngFor="let grade of acceptedGradeValues" value="{{grade}}">{{grade}}</ion-option>
-              </ion-select>
+              <div item-content class="centered-select">
+                <div item-content class="select-item">
+                  <ion-select id="previous-grade" [disabled]="!class.retaking" [(ngModel)]="class.previousGrade" interface="popover">
+                    <ion-option *ngFor="let grade of acceptedGradeValues" value="{{grade}}">{{grade}}</ion-option>
+                  </ion-select>
+                </div>
+              </div>
             </ion-item>
           </div>
           <div class="button-row bottom-bordered"></div>
@@ -113,22 +128,52 @@
       </ion-row>
     </div>
 
-    <ion-row style="transform: translateY(-100px)">
-      <ion-col style="padding: 0px; border-left: 1px solid black"></ion-col>
-      <ion-col style="padding: 0px; text-align: center">
-        <h1>Term GPA</h1>
-        <h4>{{getTermGPA()}}</h4>
-      </ion-col>
-      <ion-col style="padding: 0px"></ion-col>
-      <ion-col style="padding: 0px; text-align: center">
-        <div style="transform: translateX(50%)">
-          <h1>Cumulative GPA</h1>
-          <h4>{{getCumulativeGPA()}}</h4>
-        </div>
-      </ion-col>
-      <ion-col style="padding: 0px; border-right: 1px solid black"></ion-col>
-    </ion-row>
 
+    <div style="transform: translateY(-100px)">
+      <ion-row>
+        <ion-col class="main-table-col-1"></ion-col>
+        <ion-col class="main-table-col-2">
+          <div class="heading">
+            <h1>Term GPA</h1>
+            <h4>{{getTermGPA()}}</h4>
+          </div>
+        </ion-col>
+        <ion-col class="main-table-col-3"></ion-col>
+        <ion-col class="main-table-col-4" style="border-left: 0px !important"></ion-col>
+        <ion-col class="main-table-col-5">
+          <div class="heading">
+            <div id="bottom">
+              <h1 id="table-header" *ngIf="getCumulativeGPA() == ''" style="color: black">Cumulative GPA</h1>
+              <h1 id="table-header" *ngIf="getCumulativeGPA() != ''" style="color: blue">Cumulative GPA</h1>
+              <h4 style="color: blue">{{getCumulativeGPA()}}</h4>
+            </div>
+          </div>
+          <!--<div id="table-footer">
+    <h1 id="table-footer" *ngIf="getCumulativeGPA() == ''" style="color: black">Cumulative GPA</h1>
+    <h1 id="table-footer" *ngIf="getCumulativeGPA() != ''" style="color: blue">Cumulative GPA</h1>
+    <h4 style="color: blue">{{getCumulativeGPA()}}</h4>
+  </div>-->
+        </ion-col>
+      </ion-row>
+    </div>
+    <!---
+      <ion-row style="transform: translateY(-100px)">
+        <ion-col style="padding: 0px; border-left: 1px solid black"></ion-col>
+        <ion-col style="padding: 0px; text-align: center">
+          <h1>Term GPA</h1>
+          <h4>{{getTermGPA()}}</h4>
+        </ion-col>
+        <ion-col style="padding: 0px"></ion-col>
+        <ion-col style="padding: 0px; text-align: center">
+          <div style="transform: translateX(50%)">
+            <h1 *ngIf="getCumulativeGPA() == ''" style="color: black">Cumulative GPA</h1>
+            <h1 *ngIf="getCumulativeGPA() != ''" style="color: blue">Cumulative GPA</h1>
+            <h4 style="color: blue">{{getCumulativeGPA()}}</h4>
+          </div>
+        </ion-col>
+        <ion-col style="padding: 0px; border-right: 1px solid black"></ion-col>
+      </ion-row>
+      -->
     <ion-row>
       <ion-col>
         <h1 style="text-align: center">Raise My GPA</h1>
@@ -138,7 +183,7 @@
             <ion-input [(ngModel)]="desiredGPA" (ngModelChange)="desiredGPA = stringBugFix($event)" type="number" placeholder="0" digit></ion-input>
           </ion-item>
           <ion-item no-lines>
-            <ion-label position="fixed" color="dark">Term Credit Hours: </ion-label>
+            <ion-label position="fixed" color="dark">Term GPA Hours: </ion-label>
             <ion-input [(ngModel)]="termCreditHours" (ngModelChange)="termCreditHours = stringBugFix($event)" type="number" placeholder="0" digit></ion-input>
           </ion-item>
           <h1 style="border-top: 1px solid black">Term GPA Needed</h1>
@@ -158,7 +203,7 @@
         </ion-row>
       </ion-col>
       <ion-col>
-        <h1 style="text-align: center">Acedemic Standing Chart</h1>
+        <h1 style="text-align: center">Academic Standing Chart</h1>
         <img src="assets/imgs/Academic Standing.jpg" style="transform: translateY(-3px)" />
       </ion-col>
     </ion-row>
