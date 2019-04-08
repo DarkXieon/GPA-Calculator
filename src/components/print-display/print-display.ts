@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Class } from '../../pages/home/home';
+import { Class, PageInfo } from '../../pages/home/home';
+import { Utils } from '../../app/utils';
 
 @Component({
   selector: 'print-display',
@@ -8,13 +9,12 @@ import { Class } from '../../pages/home/home';
 export class PrintDisplayComponent {
 
   @Input()
-  private classes: Class;
-
-  @Input()
-  private name: string;
-
-  private date: Date;
-
+  private pageInfo: PageInfo;
+  
   constructor() {
+  }
+
+  private getOutput(num: number): string {
+    return Utils.GetOutput(num);
   }
 }

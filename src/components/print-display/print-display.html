@@ -1,61 +1,105 @@
 <div>
   <ion-grid>
-
     <ion-row>
       <ion-col>
-        <ion-item item-start>Name: {{name}}</ion-item>
+        <ion-item no-lines item-start>Name: {{pageInfo.studentName}}</ion-item>
       </ion-col>
       <ion-col></ion-col>
       <ion-col>
-        <ion-item item-start>Date: {{date}}</ion-item>
+        <ion-item no-lines item-end>Date: {{pageInfo.date}}</ion-item>
       </ion-col>
     </ion-row>
 
-    <ion-row style="padding-top: 5vh">
-      <ion-col style="padding: 0px"></ion-col>
-      <ion-col style="padding: 0px; text-align: center">
-        <h2>Current Term</h2>
+    <ion-row>
+      <ion-col>
+        <ion-item no-lines item-start>Current GPA: {{pageInfo.currentGPA}}</ion-item>
       </ion-col>
-      <ion-col style="padding: 0px"></ion-col>
-      <ion-col style="padding: 0px; text-align: center; transform: translateX(50%)">
-        <h2>Repeat Courses</h2>
+      <ion-col></ion-col>
+      <ion-col>
+        <ion-item no-lines item-end>GPA Hours: {{pageInfo.currentCreditHoursTaken}}</ion-item>
       </ion-col>
-      <ion-col style="padding: 0px"></ion-col>
     </ion-row>
 
-    <ion-row style="text-align: center; border: 1px solid black">
-      <ion-col>
-        Subject
-        <ion-item no-lines *ngFor="let class of classes" style="text-align: center">
-          {{class.name}}
-        </ion-item>
-      </ion-col>
-      <ion-col>
-        Grade
-        <ion-item no-lines *ngFor="let class of classes" style="text-align: center">
-          {{class.predictedGrade}}
-        </ion-item>
-      </ion-col>
-      <ion-col style=" border-right: 1px solid black">
-        Credit Hours
-        <ion-item no-lines *ngFor="let class of classes" style="text-align: center">
-          {{class.creditHours}}
-        </ion-item>
-      </ion-col>
-      <ion-col>
-        Retaking Course
-        <ion-item no-lines *ngFor="let class of classes" style="text-align: center">
-          <div *ngIf="class.retaking">Yes</div>
-          <div *ngIf="!class.retaking">No</div>
-        </ion-item>
-      </ion-col>
-      <ion-col>
-        Previous Grade
-        <ion-item no-lines *ngFor="let class of classes" style="text-align: center">
-          {{class.previousGrade}}
-        </ion-item>
-      </ion-col>
-    </ion-row>
+    <div class="top-padding">
+      <ion-row>
+        <ion-col class="main-table-col-1"></ion-col>
+        <ion-col class="main-table-col-2">
+          <h2 class="top-heading-1">Current Term</h2>
+        </ion-col>
+        <ion-col class="main-table-col-3"></ion-col>
+        <ion-col class="main-table-col-4" style="border-left: 0px !important"></ion-col>
+        <ion-col class="main-table-col-5">
+          <h2 class="top-heading-2">Repeat Courses</h2>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div class="bordered">
+      <ion-row>
+        <ion-col class="main-table-col-1">
+          <p>Subject</p>
+          <div *ngFor="let class of pageInfo.classes">
+            <ion-item no-lines>
+              <ion-label *ngIf="class.name != ''">{{class.name}}</ion-label>
+              <ion-label *ngIf="class.name == ''">Unamed Class</ion-label>
+            </ion-item>
+          </div>
+          <div class="button-row bottom-bordered"></div>
+        </ion-col>
+        <ion-col class="main-table-col-2">
+          <p>Grade</p>
+          <div *ngFor="let class of pageInfo.classes">
+            <p ion-item no-lines>{{class.predictedGrade}}</p>
+          </div>
+          <div class="button-row bottom-bordered"></div>
+        </ion-col>
+        <ion-col class="main-table-col-3">
+          <p>Credits</p>
+          <div *ngFor="let class of pageInfo.classes">
+            <p ion-item no-lines class="centered">{{class.creditHours}}</p>
+          </div>
+          <div class="button-row bottom-bordered"></div>
+          <div class="right-bordered" style="height: 101px; transform: translate(1px, 5px)"></div>
+        </ion-col>
+        <ion-col class="main-table-col-4">
+          <p>Retaking Course</p>
+          <div *ngFor="let class of pageInfo.classes">
+            <ion-item no-lines>
+              <ion-label class="checkbox" position="fixed" color="dark">I have taken this class before: </ion-label>
+              <ion-checkbox item-end [(ngModel)]="class.retaking"></ion-checkbox>
+            </ion-item>
+          </div>
+          <div class="button-row bottom-bordered" style="width: calc(100% + 1px) !important; transform: translateX(-1px)"></div>
+        </ion-col>
+        <ion-col class="main-table-col-5">
+          <p>Previous Grade</p>
+          <div *ngFor="let class of pageInfo.classes">
+            <p ion-item no-lines class="centered">{{class.previousGrade}}</p>
+          </div>
+          <div class="button-row bottom-bordered" style="width: 121%"></div>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div style="transform: translateY(-100px)">
+      <ion-row>
+        <ion-col class="main-table-col-1"></ion-col>
+        <ion-col class="main-table-col-2">
+          <div class="bottom-heading-1">
+            <h1>Term GPA</h1>
+            <h4>{{getOutput(pageInfo.termGPA)}}</h4>
+          </div>
+        </ion-col>
+        <ion-col class="main-table-col-3"></ion-col>
+        <ion-col class="main-table-col-4" style="border-left: 0px !important"></ion-col>
+        <ion-col class="main-table-col-5">
+          <div class="bottom-heading-2">
+            <h1>Cumulative GPA</h1>
+            <h4>{{getOutput(pageInfo.cumulativeGPA)}}</h4>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
   </ion-grid>
 </div>
 

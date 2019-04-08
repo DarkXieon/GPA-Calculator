@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Utils } from '../../app/utils';
 import { PrintProvider } from '../../providers/print/print';
-import { Printer } from '@ionic-native/printer';
 
 @Component({
   selector: 'page-home',
@@ -14,27 +13,24 @@ export class HomePage {
   private readonly acceptedCreditHourValues: number[] = [1, 2, 3, 4];
   private readonly acceptedGradeValues: string[] = ["A", "A-", "B+", "B", "B-", "C", "C-", "D+", "D", "D-", "F"];
 
-  //main inputs
-  private studentName: string;
-  private date: Date;
-  private currentGPA: number;
-  private currentCreditHoursTaken: number;
-  private classes: Class[];
+  private pageInfo: PageInfo = {
+    studentName: undefined,
+    date: undefined,
+    currentGPA: undefined,
+    currentCreditHoursTaken: undefined,
+    classes: [this.createClass(), this.createClass(), this.createClass(), this.createClass(), this.createClass()],
 
-  //raise my gpa inputs
-  private desiredGPA: number;
-  private termCreditHours: number;
+    desiredGPA: undefined,
+    termCreditHours: undefined,
 
-  //outputs
-  private termGPA: number;
-  
-
-  constructor(private printer: PrintProvider) {
-    this.classes = [this.createClass(), this.createClass(), this.createClass(), this.createClass(), this.createClass()];
-    
-    //console.log( getComputedStyle(document.documentElement).getPropertyValue('$main-table-col-1-min-width'));
+    termGPA: undefined,
+    cumulativeGPA: undefined
   }
+  
+  constructor(private printer: PrintProvider) {
 
+  }
+  
   private createClass(): Class {
     return {
       name: "",
@@ -46,20 +42,20 @@ export class HomePage {
   }
 
   private addClass(): void {
-    this.classes.push(this.createClass());
+    this.pageInfo.classes.push(this.createClass());
   }
 
   private removeClass(toRemove: Class): void {
-    let index: number = this.classes.indexOf(toRemove);
-    this.classes.splice(index, 1);
+    let index: number = this.pageInfo.classes.indexOf(toRemove);
+    this.pageInfo.classes.splice(index, 1);
   }
 
   private getTermCreditHours(): number {
 
     let total: number = 0;
     
-    for (let i: number = 0; i < this.classes.length; i++) {
-      total += Number(this.classes[i].creditHours);
+    for (let i: number = 0; i < this.pageInfo.classes.length; i++) {
+      total += Number(this.pageInfo.classes[i].creditHours);
     }
     
     return total;
@@ -69,8 +65,8 @@ export class HomePage {
 
     let total: number = 0;
 
-    for (let i: number = 0; i < this.classes.length; i++) {
-      total += Grade[this.classes[i].predictedGrade] * this.classes[i].creditHours;
+    for (let i: number = 0; i < this.pageInfo.classes.length; i++) {
+      total += Grade[this.pageInfo.classes[i].predictedGrade] * this.pageInfo.classes[i].creditHours;
     }
 
     return total;
@@ -80,9 +76,9 @@ export class HomePage {
 
     let total: number = 0;
 
-    for (let i: number = 0; i < this.classes.length; i++) {
-      if (this.classes[i].retaking) {
-        total += this.classes[i].creditHours;
+    for (let i: number = 0; i < this.pageInfo.classes.length; i++) {
+      if (this.pageInfo.classes[i].retaking) {
+        total += this.pageInfo.classes[i].creditHours;
       }
     }
 
@@ -93,9 +89,9 @@ export class HomePage {
 
     let total: number = 0;
 
-    for (let i: number = 0; i < this.classes.length; i++) {
-      if (this.classes[i].retaking) {
-        total += Grade[this.classes[i].previousGrade] * this.classes[i].creditHours;
+    for (let i: number = 0; i < this.pageInfo.classes.length; i++) {
+      if (this.pageInfo.classes[i].retaking) {
+        total += Grade[this.pageInfo.classes[i].previousGrade] * this.pageInfo.classes[i].creditHours;
       }
     }
 
@@ -108,13 +104,15 @@ export class HomePage {
     let termQualityPoints: number = this.getTermQualityPoints();
     
     let termGPA: number = termQualityPoints / termCreditHours;
-    
-    return !isNaN(termGPA) ? termGPA.toFixed(2) : "";
+
+    this.pageInfo.termGPA = !isNaN(termGPA) ? termGPA : NaN;
+
+    return Utils.GetOutput(this.pageInfo.termGPA);
   }
 
   private getCumulativeGPA(): string {
 
-    let currentQualityPoints: number = this.currentGPA * this.currentCreditHoursTaken;
+    let currentQualityPoints: number = this.pageInfo.currentGPA * this.pageInfo.currentCreditHoursTaken;
 
     let termCreditHours: number = this.getTermCreditHours();
     let termQualityPoints: number = this.getTermQualityPoints();
@@ -122,17 +120,19 @@ export class HomePage {
     let termRetakeHours: number = this.getPreviousCreditHours();
     let termRetakePoints: number = this.getPreviousQualityPoints();
     
-    let cumulativeGPA: number = ((currentQualityPoints - termRetakePoints) + termQualityPoints) / ((this.currentCreditHoursTaken - termRetakeHours) + termCreditHours);
+    let cumulativeGPA: number = ((currentQualityPoints - termRetakePoints) + termQualityPoints) / ((this.pageInfo.currentCreditHoursTaken - termRetakeHours) + termCreditHours);
 
-    return !isNaN(cumulativeGPA) ? cumulativeGPA.toFixed(2) : "";
+    this.pageInfo.cumulativeGPA = !isNaN(cumulativeGPA) ? cumulativeGPA : NaN;
+
+    return Utils.GetOutput(this.pageInfo.cumulativeGPA);
   }
 
   private getRequiredGPA(): string {
     
-    let currentQualityPoints: number = this.currentGPA * this.currentCreditHoursTaken;
+    let currentQualityPoints: number = this.pageInfo.currentGPA * this.pageInfo.currentCreditHoursTaken;
 
-    let termQualityPointsNeeded: number = this.desiredGPA * (this.currentCreditHoursTaken + this.termCreditHours) - currentQualityPoints;
-    let termGPANeeded: number = termQualityPointsNeeded / this.termCreditHours;
+    let termQualityPointsNeeded: number = this.pageInfo.desiredGPA * (this.pageInfo.currentCreditHoursTaken + this.pageInfo.termCreditHours) - currentQualityPoints;
+    let termGPANeeded: number = termQualityPointsNeeded / this.pageInfo.termCreditHours;
     
     return !isNaN(termGPANeeded) ? termGPANeeded.toFixed(2) : "";
   }
@@ -142,7 +142,7 @@ export class HomePage {
   }
 
   private updateTermCreditHours(): void {
-    this.termCreditHours = Number(this.getTermCreditHours());
+    this.pageInfo.termCreditHours = Number(this.getTermCreditHours());
   }
 
   private stringBugFix(event): number {
@@ -151,14 +151,31 @@ export class HomePage {
 
   private clear(): void {
 
-    this.studentName = "";
-    this.currentGPA = NaN;
-    this.currentCreditHoursTaken = NaN;
-    this.classes = [this.createClass(), this.createClass(), this.createClass(), this.createClass(), this.createClass()];
+    this.pageInfo.studentName = null;
+    this.pageInfo.currentGPA = null;
+    this.pageInfo.currentCreditHoursTaken = null;
+    this.pageInfo.classes = [this.createClass(), this.createClass(), this.createClass(), this.createClass(), this.createClass()];
 
-    this.desiredGPA = NaN;
-    this.termCreditHours = NaN;
+    this.pageInfo.desiredGPA = null;
+    this.pageInfo.termCreditHours = null;
+
+    this.pageInfo.termGPA = null;
+    this.pageInfo.cumulativeGPA = null;
   }
+}
+
+export interface PageInfo {
+  studentName: string;
+  date: Date;
+  currentGPA: number;
+  currentCreditHoursTaken: number;
+  classes: Class[];
+  
+  desiredGPA: number;
+  termCreditHours: number;
+
+  termGPA: number;
+  cumulativeGPA: number;
 }
 
 export interface Class {

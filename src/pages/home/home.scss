@@ -1,5 +1,4 @@
 page-home {
-
   $main-table-col-1-min-width: 200px;
   $main-table-col-2-min-width: 106px;
   $main-table-col-3-min-width: 142px;
@@ -138,44 +137,7 @@ page-home {
       min-width: calc(100% - 10px) !important;
     }
   }
-  /*ion-row ion-col ion-item ion-select#letter-grade {
-    min-width: calc(100% - 10px) !important;
-    //min-width: 70px !important;
-    //max-width: 70px !importan
-  }
-
-  ion-row ion-col ion-item ion-select#credit-hours {
-    min-width: 100% !important;
-    //min-width: 50px !important;
-    //max-width: 50px !important;
-  }
-
-  ion-row ion-col ion-item ion-select#previous-grade {
-    min-width: 100% !important;
-    //min-width: 50px !important;
-    //max-width: 50px !important;
-  }
-
-  ion-row ion-col ion-item ion-label#checkbox {
-    padding-left: 10px;
-    min-width: calc(100% - 10px) !important;
-    //min-width: 50px !important;
-    //max-width: 50px !important;
-  }*/
-  /*ion-row ion-col ion-item button#add-class {
-    height: 25px !important;
-    transform: translateX(5px);
-  }
-
-  ion-row ion-col ion-item button#remove-class {
-    width: 25px !important;
-    padding-left: 0px !important;
-    padding-right: 0px !important;
-    transform: translateX(10px);
-  }*/
-  /*ion-row ion-col ion-item ion-label {
-    text-align: left;
-  }*/
+  
   p, h2 {
     width: 100%;
     height: 100%;

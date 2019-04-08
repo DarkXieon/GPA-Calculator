@@ -4,14 +4,14 @@
       <ion-col>
         <ion-item>
           <ion-label position="fixed" color="dark">Name: </ion-label>
-          <ion-input [(ngModel)]="studentName" type="text" placeholder="John Doe"></ion-input>
+          <ion-input [(ngModel)]="pageInfo.studentName" type="text" placeholder="John Doe"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col></ion-col>
       <ion-col>
         <ion-item>
           <ion-label position="fixed" color="dark">Date: </ion-label>
-          <ion-input [(ngModel)]="date" type="date"></ion-input>
+          <ion-input [(ngModel)]="pageInfo.date" type="date"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -20,14 +20,14 @@
       <ion-col>
         <ion-item>
           <ion-label position="fixed" color="dark">Current GPA: </ion-label>
-          <ion-input [(ngModel)]="currentGPA" (ngModelChange)="currentGPA = stringBugFix($event)" type="number" placeholder="0"></ion-input>
+          <ion-input [(ngModel)]="pageInfo.currentGPA" (ngModelChange)="currentGPA = stringBugFix($event)" type="number" placeholder="0"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col></ion-col>
       <ion-col>
         <ion-item>
           <ion-label position="fixed" color="dark">GPA Hours: </ion-label>
-          <ion-input [(ngModel)]="currentCreditHoursTaken" (ngModelChange)="currentCreditHoursTaken = stringBugFix($event)" type="number" placeholder="0"></ion-input>
+          <ion-input [(ngModel)]="pageInfo.currentCreditHoursTaken" (ngModelChange)="currentCreditHoursTaken = stringBugFix($event)" type="number" placeholder="0"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -56,7 +56,7 @@
       <ion-row>
         <ion-col class="main-table-col-1">
           <p>Subject</p>
-          <div *ngFor="let class of classes">
+          <div *ngFor="let class of pageInfo.classes">
             <!-- id="class-input"-->
             <ion-item no-lines>
               <ion-input [(ngModel)]="class.name" type="text" placeholder="Class Name Here"></ion-input>
@@ -70,7 +70,7 @@
         </ion-col>
         <ion-col class="main-table-col-2">
           <p>Grade</p>
-          <div *ngFor="let class of classes">
+          <div *ngFor="let class of pageInfo.classes">
             <ion-item no-lines>
               <div item-content class="centered-select">
                 <div item-content class="select-item">
@@ -85,7 +85,7 @@
         </ion-col>
         <ion-col class="main-table-col-3">
           <p>Credits</p>
-          <div *ngFor="let class of classes">
+          <div *ngFor="let class of pageInfo.classes">
             <ion-item no-padding no-lines>
               <div item-content class="centered-select">
                 <div item-content class="select-item">
@@ -102,7 +102,7 @@
         </ion-col>
         <ion-col class="main-table-col-4">
           <p>Retaking Course</p>
-          <div *ngFor="let class of classes">
+          <div *ngFor="let class of pageInfo.classes">
             <ion-item no-lines>
               <ion-label class="checkbox" position="fixed" color="dark">I have taken this class before: </ion-label>
               <ion-checkbox item-end [(ngModel)]="class.retaking"></ion-checkbox>
@@ -112,7 +112,7 @@
         </ion-col>
         <ion-col class="main-table-col-5">
           <p>Previous Grade</p>
-          <div *ngFor="let class of classes">
+          <div *ngFor="let class of pageInfo.classes">
             <ion-item no-lines id="previous-grade">
               <div item-content class="centered-select">
                 <div item-content class="select-item">
@@ -127,7 +127,6 @@
         </ion-col>
       </ion-row>
     </div>
-
 
     <div style="transform: translateY(-100px)">
       <ion-row>
@@ -148,43 +147,21 @@
               <h4 style="color: blue">{{getCumulativeGPA()}}</h4>
             </div>
           </div>
-          <!--<div id="table-footer">
-    <h1 id="table-footer" *ngIf="getCumulativeGPA() == ''" style="color: black">Cumulative GPA</h1>
-    <h1 id="table-footer" *ngIf="getCumulativeGPA() != ''" style="color: blue">Cumulative GPA</h1>
-    <h4 style="color: blue">{{getCumulativeGPA()}}</h4>
-  </div>-->
         </ion-col>
       </ion-row>
     </div>
-    <!---
-      <ion-row style="transform: translateY(-100px)">
-        <ion-col style="padding: 0px; border-left: 1px solid black"></ion-col>
-        <ion-col style="padding: 0px; text-align: center">
-          <h1>Term GPA</h1>
-          <h4>{{getTermGPA()}}</h4>
-        </ion-col>
-        <ion-col style="padding: 0px"></ion-col>
-        <ion-col style="padding: 0px; text-align: center">
-          <div style="transform: translateX(50%)">
-            <h1 *ngIf="getCumulativeGPA() == ''" style="color: black">Cumulative GPA</h1>
-            <h1 *ngIf="getCumulativeGPA() != ''" style="color: blue">Cumulative GPA</h1>
-            <h4 style="color: blue">{{getCumulativeGPA()}}</h4>
-          </div>
-        </ion-col>
-        <ion-col style="padding: 0px; border-right: 1px solid black"></ion-col>
-      </ion-row>
-      -->
+
     <ion-row>
       <ion-col>
         <h1 style="text-align: center">Raise My GPA</h1>
         <div style="border: 1px solid black; text-align: center">
           <ion-item no-lines>
             <ion-label position="fixed" color="dark">Desired GPA: </ion-label>
-            <ion-input [(ngModel)]="desiredGPA" (ngModelChange)="desiredGPA = stringBugFix($event)" type="number" placeholder="0" digit></ion-input>
+            <ion-input [(ngModel)]="pageInfo.desiredGPA" (ngModelChange)="desiredGPA = stringBugFix($event)" type="number" placeholder="0" digit></ion-input>
           </ion-item>
           <ion-item no-lines>
             <ion-label position="fixed" color="dark">Term GPA Hours: </ion-label>
-            <ion-input [(ngModel)]="termCreditHours" (ngModelChange)="termCreditHours = stringBugFix($event)" type="number" placeholder="0" digit></ion-input>
+            <ion-input [(ngModel)]="pageInfo.termCreditHours" (ngModelChange)="termCreditHours = stringBugFix($event)" type="number" placeholder="0" digit></ion-input>
           </ion-item>
           <h1 style="border-top: 1px solid black">Term GPA Needed</h1>
           <h4 *ngIf="getRequiredGPA() != ''">{{getRequiredGPA()}}</h4>
@@ -195,10 +172,10 @@
         </div>
         <ion-row>
           <ion-col>
-            <button ion-button (click)="clear()" full>Clear</button>
+            <button ion-button full (click)="clear()">Clear</button>
           </ion-col>
           <ion-col>
-            <button ion-button (click)="printPage('print')" full>Print</button>
+            <button ion-button full (click)="printPage('printer')">Print</button>
           </ion-col>
         </ion-row>
       </ion-col>
@@ -212,5 +189,8 @@
   <br />
   <br />
   <br />
-  <print-display [classes]="classes" [name]="name"></print-display>
+</ion-content>
+
+<ion-content padding id="printer" style="display: none">
+  <print-display [pageInfo]="pageInfo"></print-display>
 </ion-content>
