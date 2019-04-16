@@ -11,7 +11,7 @@ export class HomePage {
 
   //constants
   private readonly acceptedCreditHourValues: number[] = [1, 2, 3, 4];
-  private readonly acceptedGradeValues: string[] = ["A", "A-", "B+", "B", "B-", "C", "C-", "D+", "D", "D-", "F"];
+  private readonly acceptedGradeValues: string[] = ["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F"];
 
   private pageInfo: PageInfo = {
     studentName: undefined,
@@ -28,7 +28,6 @@ export class HomePage {
   }
   
   constructor(private printer: PrintProvider) {
-
   }
   
   private createClass(): Class {
@@ -150,7 +149,7 @@ export class HomePage {
   }
 
   private clear(): void {
-
+    
     this.pageInfo.studentName = null;
     this.pageInfo.currentGPA = null;
     this.pageInfo.currentCreditHoursTaken = null;
@@ -159,8 +158,8 @@ export class HomePage {
     this.pageInfo.desiredGPA = null;
     this.pageInfo.termCreditHours = null;
 
-    this.pageInfo.termGPA = null;
-    this.pageInfo.cumulativeGPA = null;
+    this.pageInfo.termGPA = NaN;
+    this.pageInfo.cumulativeGPA = NaN;
   }
 }
 
@@ -192,6 +191,7 @@ export enum Grade {
   "B+" = 3.33,
   "B" = 3.0,
   "B-" = 2.67,
+  "C+" = 2.33,
   "C" = 2.0,
   "C-" = 1.67,
   "D+" = 1.33,

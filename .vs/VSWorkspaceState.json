@@ -10,6 +10,6 @@
     "\\src\\providers",
     "\\src\\providers\\print"
   ],
-  "SelectedNode": "\\src\\app\\app.html",
+  "SelectedNode": "\\src\\pages\\home\\home.ts",
   "PreviewInSolutionExplorer": false
 }

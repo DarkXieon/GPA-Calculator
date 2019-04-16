@@ -20,14 +20,14 @@
       <ion-col>
         <ion-item>
           <ion-label position="fixed" color="dark">Current GPA: </ion-label>
-          <ion-input [(ngModel)]="pageInfo.currentGPA" (ngModelChange)="currentGPA = stringBugFix($event)" type="number" placeholder="0"></ion-input>
+          <ion-input [(ngModel)]="pageInfo.currentGPA" (ngModelChange)="pageInfo.currentGPA = stringBugFix($event)" type="number" placeholder="0"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col></ion-col>
       <ion-col>
         <ion-item>
           <ion-label position="fixed" color="dark">GPA Hours: </ion-label>
-          <ion-input [(ngModel)]="pageInfo.currentCreditHoursTaken" (ngModelChange)="currentCreditHoursTaken = stringBugFix($event)" type="number" placeholder="0"></ion-input>
+          <ion-input [(ngModel)]="pageInfo.currentCreditHoursTaken" (ngModelChange)="pageInfo.currentCreditHoursTaken = stringBugFix($event)" type="number" placeholder="0"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -157,11 +157,11 @@
         <div style="border: 1px solid black; text-align: center">
           <ion-item no-lines>
             <ion-label position="fixed" color="dark">Desired GPA: </ion-label>
-            <ion-input [(ngModel)]="pageInfo.desiredGPA" (ngModelChange)="desiredGPA = stringBugFix($event)" type="number" placeholder="0" digit></ion-input>
+            <ion-input [(ngModel)]="pageInfo.desiredGPA" (ngModelChange)="pageInfo.desiredGPA = stringBugFix($event)" type="number" placeholder="0" digit></ion-input>
           </ion-item>
           <ion-item no-lines>
             <ion-label position="fixed" color="dark">Term GPA Hours: </ion-label>
-            <ion-input [(ngModel)]="pageInfo.termCreditHours" (ngModelChange)="termCreditHours = stringBugFix($event)" type="number" placeholder="0" digit></ion-input>
+            <ion-input [(ngModel)]="pageInfo.termCreditHours" (ngModelChange)="pageInfo.termCreditHours = stringBugFix($event)" type="number" placeholder="0" digit></ion-input>
           </ion-item>
           <h1 style="border-top: 1px solid black">Term GPA Needed</h1>
           <h4 *ngIf="getRequiredGPA() != ''">{{getRequiredGPA()}}</h4>
