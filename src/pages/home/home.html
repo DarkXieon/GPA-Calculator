@@ -1,10 +1,15 @@
-<ion-content padding>
+<ion-content padding id="not-printed">
   <ion-grid no-padding>
     <ion-row>
       <ion-col>
+        <h1>Unofficial GPA Calculator</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
         <ion-item>
-          <ion-label position="fixed" color="dark">Name: </ion-label>
-          <ion-input [(ngModel)]="pageInfo.studentName" type="text" placeholder="John Doe"></ion-input>
+          <ion-label position="fixed" color="dark">First Name: </ion-label>
+          <ion-input [(ngModel)]="pageInfo.studentName" type="text" placeholder="John"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col></ion-col>
@@ -28,6 +33,7 @@
         <ion-item>
           <ion-label position="fixed" color="dark">GPA Hours: </ion-label>
           <ion-input [(ngModel)]="pageInfo.currentCreditHoursTaken" (ngModelChange)="pageInfo.currentCreditHoursTaken = stringBugFix($event)" type="number" placeholder="0"></ion-input>
+          <button ion-button item-end round outline class="round" tooltip="Enter the total number of GPA hours taken at Fredonia. You can find this information on your academic transcript via on Your Connection." positionV="bottom">?</button>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -57,9 +63,8 @@
         <ion-col class="main-table-col-1">
           <p>Subject</p>
           <div *ngFor="let class of pageInfo.classes">
-            <!-- id="class-input"-->
             <ion-item no-lines>
-              <ion-input [(ngModel)]="class.name" type="text" placeholder="Class Name Here"></ion-input>
+              <ion-input [(ngModel)]="class.name" type="text" placeholder="Class Name (Optional)"></ion-input>
             </ion-item>
           </div>
           <div class="button-row bottom-bordered">
@@ -153,7 +158,7 @@
 
     <ion-row>
       <ion-col>
-        <h1 style="text-align: center">Raise My GPA</h1>
+        <h1 style="text-align: center">Raise My Cumulative GPA</h1>
         <div style="border: 1px solid black; text-align: center">
           <ion-item no-lines>
             <ion-label position="fixed" color="dark">Desired GPA: </ion-label>
@@ -161,7 +166,11 @@
           </ion-item>
           <ion-item no-lines>
             <ion-label position="fixed" color="dark">Term GPA Hours: </ion-label>
-            <ion-input [(ngModel)]="pageInfo.termCreditHours" (ngModelChange)="pageInfo.termCreditHours = stringBugFix($event)" type="number" placeholder="0" digit></ion-input>
+            <ion-input [(ngModel)]="pageInfo.termCreditHours" [disabled]="pageInfo.useCurrentClassData" (ngModelChange)="pageInfo.termCreditHours = stringBugFix($event)" type="number" placeholder="0" digit></ion-input>
+          </ion-item>
+          <ion-item no-lines style="max-width: 210px !important">
+            <ion-label position="fixed" color="dark">Use Current Term Data: </ion-label>
+            <ion-checkbox item-end [(ngModel)]="pageInfo.useCurrentClassData"></ion-checkbox>
           </ion-item>
           <h1 style="border-top: 1px solid black">Term GPA Needed</h1>
           <h4 *ngIf="getRequiredGPA() != ''">{{getRequiredGPA()}}</h4>
@@ -171,10 +180,10 @@
           </div>
         </div>
         <ion-row>
-          <ion-col>
-            <button ion-button full (click)="clear()">Clear</button>
+          <ion-col class="right-padding">
+            <button ion-button full (click)="clear()">Clear All</button>
           </ion-col>
-          <ion-col>
+          <ion-col class="left-padding">
             <button ion-button full (click)="printPage('printer')">Print</button>
           </ion-col>
         </ion-row>
@@ -191,6 +200,8 @@
   <br />
 </ion-content>
 
-<ion-content padding id="printer" style="display: none">
+<print-display [pageInfo]="pageInfo" id="printer" style="display: none"></print-display>
+<!--<ion-content padding id="printer" style="display: none">
   <print-display [pageInfo]="pageInfo"></print-display>
-</ion-content>
+</ion-content>-->
+

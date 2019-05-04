@@ -1,4 +1,4 @@
-<div>
+<div class="master">
   <ion-grid>
     <ion-row>
       <ion-col>
@@ -38,27 +38,27 @@
       <ion-row>
         <ion-col class="main-table-col-1">
           <p>Subject</p>
-          <div *ngFor="let class of pageInfo.classes">
+          <div class="left-padding" *ngFor="let class of pageInfo.classes">
             <ion-item no-lines>
               <ion-label *ngIf="class.name != ''">{{class.name}}</ion-label>
               <ion-label *ngIf="class.name == ''">Unamed Class</ion-label>
             </ion-item>
           </div>
-          <div class="button-row bottom-bordered"></div>
+          <div class="bottom-bordered"></div>
         </ion-col>
         <ion-col class="main-table-col-2">
           <p>Grade</p>
           <div *ngFor="let class of pageInfo.classes">
             <p ion-item no-lines>{{class.predictedGrade}}</p>
           </div>
-          <div class="button-row bottom-bordered"></div>
+          <div class="bottom-bordered"></div>
         </ion-col>
         <ion-col class="main-table-col-3">
           <p>Credits</p>
           <div *ngFor="let class of pageInfo.classes">
             <p ion-item no-lines class="centered">{{class.creditHours}}</p>
           </div>
-          <div class="button-row bottom-bordered"></div>
+          <div class="bottom-bordered"></div>
           <div class="right-bordered" style="height: 101px; transform: translate(1px, 5px)"></div>
         </ion-col>
         <ion-col class="main-table-col-4">
@@ -69,19 +69,19 @@
               <ion-checkbox item-end [(ngModel)]="class.retaking"></ion-checkbox>
             </ion-item>
           </div>
-          <div class="button-row bottom-bordered" style="width: calc(100% + 1px) !important; transform: translateX(-1px)"></div>
+          <div class="bottom-bordered" style="width: calc(100% + 1px) !important; transform: translateX(-1px)"></div>
         </ion-col>
         <ion-col class="main-table-col-5">
           <p>Previous Grade</p>
           <div *ngFor="let class of pageInfo.classes">
             <p ion-item no-lines class="centered">{{class.previousGrade}}</p>
           </div>
-          <div class="button-row bottom-bordered" style="width: 121%"></div>
+          <div class="bottom-bordered" style="width: 121%"></div>
         </ion-col>
       </ion-row>
     </div>
 
-    <div style="transform: translateY(-100px)">
+    <div style="transform: translateY(-120px)">
       <ion-row>
         <ion-col class="main-table-col-1"></ion-col>
         <ion-col class="main-table-col-2">
@@ -100,6 +100,30 @@
         </ion-col>
       </ion-row>
     </div>
+
+    <ion-row>
+      <ion-col>
+        <h1 style="text-align: center">Raise My Cumulative GPA</h1>
+        <div style="border: 1px solid black; text-align: center">
+          <ion-item no-lines>
+            <ion-label position="fixed" color="dark">Desired GPA: {{getOutput(pageInfo.desiredGPA)}}</ion-label>
+          </ion-item>
+          <ion-item no-lines>
+            <ion-label position="fixed" color="dark">Term GPA Hours: {{getOutput(pageInfo.termCreditHours)}}</ion-label>
+          </ion-item>
+          <h1 style="border-top: 1px solid black">Term GPA Needed</h1>
+          <h4 *ngIf="getOutput(pageInfo.requiredGPA) != ''">{{getOutput(pageInfo.requiredGPA)}}</h4>
+          <div *ngIf="getOutput(pageInfo.requiredGPA) == ''">
+            <br />
+            <br />
+          </div>
+        </div>
+      </ion-col>
+      <ion-col>
+        <h1 style="text-align: center">Academic Standing Chart</h1>
+        <img src="assets/imgs/Academic Standing.jpg" style="transform: translateY(-3px); width: 68% !important; height: 68% !important" />
+      </ion-col>
+    </ion-row>
   </ion-grid>
 </div>
 

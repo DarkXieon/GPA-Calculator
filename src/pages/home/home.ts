@@ -22,12 +22,15 @@ export class HomePage {
 
     desiredGPA: undefined,
     termCreditHours: undefined,
+    useCurrentClassData: true,
+    requiredGPA: undefined,
 
     termGPA: undefined,
     cumulativeGPA: undefined
   }
   
   constructor(private printer: PrintProvider) {
+    console.log(this.pageInfo.currentGPA);
   }
   
   private createClass(): Class {
@@ -111,6 +114,10 @@ export class HomePage {
 
   private getCumulativeGPA(): string {
 
+    if (this.pageInfo.currentGPA == null || this.pageInfo.currentCreditHoursTaken == null) {
+      return "";
+    }
+
     let currentQualityPoints: number = this.pageInfo.currentGPA * this.pageInfo.currentCreditHoursTaken;
 
     let termCreditHours: number = this.getTermCreditHours();
@@ -127,13 +134,17 @@ export class HomePage {
   }
 
   private getRequiredGPA(): string {
-    
-    let currentQualityPoints: number = this.pageInfo.currentGPA * this.pageInfo.currentCreditHoursTaken;
 
-    let termQualityPointsNeeded: number = this.pageInfo.desiredGPA * (this.pageInfo.currentCreditHoursTaken + this.pageInfo.termCreditHours) - currentQualityPoints;
-    let termGPANeeded: number = termQualityPointsNeeded / this.pageInfo.termCreditHours;
-    
-    return !isNaN(termGPANeeded) ? termGPANeeded.toFixed(2) : "";
+    let previousCreditHours = this.pageInfo.useCurrentClassData ? this.getPreviousCreditHours() : this.pageInfo.currentCreditHoursTaken;
+    let previousQualityPoints = this.pageInfo.useCurrentClassData ? this.getPreviousQualityPoints() : this.pageInfo.currentGPA * this.pageInfo.currentCreditHoursTaken;
+    let currentCreditHours = this.pageInfo.useCurrentClassData ? this.getTermCreditHours() : this.pageInfo.termCreditHours;
+
+    let termQualityPointsNeeded: number = this.pageInfo.desiredGPA * (previousCreditHours + currentCreditHours) - previousQualityPoints;
+    let termGPANeeded: number = termQualityPointsNeeded / currentCreditHours;
+
+    this.pageInfo.requiredGPA = !isNaN(termGPANeeded) ? termGPANeeded : NaN;
+
+    return Utils.GetOutput(this.pageInfo.requiredGPA);
   }
 
   private printPage(elementId: string): void {
@@ -157,6 +168,7 @@ export class HomePage {
 
     this.pageInfo.desiredGPA = null;
     this.pageInfo.termCreditHours = null;
+    this.pageInfo.requiredGPA = null;
 
     this.pageInfo.termGPA = NaN;
     this.pageInfo.cumulativeGPA = NaN;
@@ -172,6 +184,8 @@ export interface PageInfo {
   
   desiredGPA: number;
   termCreditHours: number;
+  useCurrentClassData: boolean;
+  requiredGPA: number;
 
   termGPA: number;
   cumulativeGPA: number;

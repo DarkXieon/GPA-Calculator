@@ -1,21 +1,35 @@
 print-display {
-  $main-table-col-1-min-width: 2.1in;
-  $main-table-col-2-min-width: 1.10in;
-  $main-table-col-3-min-width: 1.10in;
-  $main-table-col-4-min-width: 2.75in;
-  $main-table-col-5-min-width: 1.10in;
+  /*
+    $main-table-col-1-min-width: 2.1in;
+    $main-table-col-2-min-width: 1.10in;
+    $main-table-col-3-min-width: 1.10in;
+    $main-table-col-4-min-width: 2.75in;
+    $main-table-col-5-min-width: 1.10in;
+  */
+
+  $main-table-col-1-min-width: 210px;
+  $main-table-col-2-min-width: 110px;
+  $main-table-col-3-min-width: 110px;
+  $main-table-col-4-min-width: 275px;
+  $main-table-col-5-min-width: 110px;
   $main-table-heading-width-1: 144px;
-  $main-table-heading-width-2: 170px;
+  $main-table-heading-width-2: 200px;
   $main-table-footer-width-1: 144px;
   $main-table-footer-width-2: 200px;
 
-  ion-grid {
-    min-height: 11in !important;
+  html, body {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+  }
+
+  div.master {
+    height: auto !important;
+    width: 850px !important;
+    /*min-height: 11in !important;
     max-height: 11in !important;
     min-width: 8.5in !important;
-    max-width: 8.5in !important;
-    position: absolute;
-    left: 0px;
+    max-width: 8.5in !important;*/
   }
 
   ion-grid ion-row {
@@ -37,6 +51,11 @@ print-display {
   ion-grid ion-row ion-col.main-table-col-1 {
     min-width: $main-table-col-1-min-width !important;
     max-width: $main-table-col-1-min-width !important;
+
+    p {
+      text-align: left !important;
+      transform: translateX(calc(#{$main-table-col-1-min-width} / 4)) !important;
+    }
   }
 
   ion-grid ion-row ion-col.main-table-col-2 {
@@ -48,7 +67,7 @@ print-display {
       width: $main-table-heading-width-1 !important;
       height: 100% !important;
       position: fixed;
-      transform: translateY(-30px);
+      transform: translateY(-45px);
       left: calc(#{$main-table-col-1-min-width} - #{$main-table-heading-width-1} / 2 + (#{$main-table-heading-width-1} - #{$main-table-col-2-min-width}) / 2);
     }
 
@@ -94,7 +113,7 @@ print-display {
       width: $main-table-heading-width-2 !important;
       height: 100% !important;
       position: fixed;
-      transform: translateY(-30px);
+      transform: translateY(-45px);
       left: calc((#{$main-table-col-1-min-width} + #{$main-table-col-2-min-width} + #{$main-table-col-3-min-width}) + #{$main-table-heading-width-2} / 2 + (#{$main-table-col-4-min-width} - #{$main-table-heading-width-2}) / 2);
     }
 
@@ -151,10 +170,6 @@ print-display {
     padding-right: 0px;
   }
 
-  div.button-row {
-    height: 60px !important;
-  }
-
   div.bordered {
     border: 1px solid black;
     padding: 0px;
@@ -186,5 +201,13 @@ print-display {
 
   div.bottom-padding {
     padding-bottom: 5vw;
+  }
+
+  .right-padding {
+    padding-right: 5px !important;
+  }
+
+  .left-padding {
+    padding-left: 5px !important;
   }
 }

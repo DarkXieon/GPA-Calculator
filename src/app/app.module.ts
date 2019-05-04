@@ -3,6 +3,8 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { TooltipsModule } from 'ionic-tooltips';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -19,8 +21,10 @@ import { ComponentsModule } from '../components/components.module';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     ComponentsModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    TooltipsModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
