@@ -22,7 +22,7 @@ export class HomePage {
 
     desiredGPA: undefined,
     termCreditHours: undefined,
-    useCurrentClassData: true,
+    useCurrentClassData: false,
     requiredGPA: undefined,
 
     termGPA: undefined,
@@ -158,7 +158,7 @@ export class HomePage {
   private stringBugFix(event): number {
     return +event;
   }
-
+  
   private clear(): void {
     
     this.pageInfo.studentName = null;

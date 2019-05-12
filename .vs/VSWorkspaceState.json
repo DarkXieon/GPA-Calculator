@@ -3,13 +3,14 @@
     "",
     "\\src",
     "\\src\\app",
+    "\\src\\assets",
+    "\\src\\assets\\imgs",
     "\\src\\components",
     "\\src\\components\\print-display",
     "\\src\\pages",
     "\\src\\pages\\home",
-    "\\src\\providers",
-    "\\src\\providers\\print"
+    "\\src\\providers"
   ],
-  "SelectedNode": "\\src\\providers\\print\\print.ts",
+  "SelectedNode": "\\resources",
   "PreviewInSolutionExplorer": false
 }
